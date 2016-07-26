@@ -1,0 +1,76 @@
+#wrapper{
+	border:1px solid black;
+	margin:auto;
+	width:1030px;
+	height:1000px;
+}
+#lpage{
+	float:left;
+	width:199px;
+	border-right:1px solid black;
+	height:100%;
+}
+#rpage{	
+	width:830px;
+	height:100%;
+	float:left;
+	/*margin-top:100px; 이거 나중에 제목이미지 넣을 자리*/
+}
+#checkB{
+	margin-top:5px;
+	margin-left:45px;
+}
+#conbar{
+	width:100%;
+	height:30px;
+	border-bottom:1px solid black;
+}
+#maindv{
+	width:100%;
+	height:960px;
+	overflow:scroll;
+}
+#checkB{
+	width:20px;
+	height:20px;
+	text-align:left;
+}
+#yeardiv{
+	font-size:15pt;
+	text-align:center;
+	width:100%;
+	height:15%;
+}
+#monthdiv{
+	width:100%;
+	height:80%;
+}
+.mid{
+	vertical-align:middle;
+}
+span{
+	margin-right:10px;
+	margin-top:2px;
+	float:right;
+} 
+.month{
+	width:97.4%;
+	height:50px;
+	text-align:center;
+	border:white groove;
+}
+.m_bt{
+	width:95%;
+	height:50px;
+	text-align:center;
+	margin-top:10px;
+	margin-left:5px;
+}
+#sel_yy{
+	margin-top:50px;
+	width:140px;
+	height:40px;
+	font-size:20px;
+	text-align:center;
+
+}

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>내 일기장</title>
+<link rel="stylesheet" type="text/css" href="./star.css"/>
+<script src="./Mem.js"></script>
+<script src="./lib.js"></script>
+
+<script>
+var maindv;
+var bt_add;
+var bt_del;
+var arr=new Array();
+var leng;
+var reg;
+var d=new Date();
+var montharr=new Array(12);
+for(i=0;i<montharr.length;i++){
+		montharr[i]=new Array();			
+}
+var op=document.createElement("option");
+var mon;
+//var tday=d.getDay();
+//var tdate=d.getDate();
+var dayName=["sun","mon","tue","wed","thu","fri","sat"];
+var divbot;
+var mem;
+var reg;
+var sel_yy;
+var sel_mm;
+var sel_dd;
+var yy=d.getFullYear();
+var mm=d.getMonth();
+var dd=d.getDate();
+var ddd=d.getDay();
+
+var memarr=new Array();
+var lastday;
+var m_bt;
+var m1;
+
+window.addEventListener("load",function(){
+	init();
+});
+function init(){	
+	set_year();
+	set_month();
+	set_dat();
+	addclk();
+	delclk();	
+	bt_month();
+	//mbtclk();
+	function set_year(){
+		sel_yy=document.getElementById("sel_yy");
+		for(var i=2020; i>=1990; i--){		
+			//option 생성!!
+			op=document.createElement("option");
+			op.text=i;
+			//select 에 추가하기!!
+			sel_yy.add(op);
+			sel_yy.value=yy;
+		}
+	}
+	function set_month(){
+		sel_mm=document.getElementById("sel_mm");
+		for (var i=1;i<=12;i++){
+			op=document.createElement("option");
+			op.text=i;
+			sel_mm.add(op);	
+		}	
+		
+		sel_mm.value=mm+1;
+	}
+	function set_dat(){
+		
+		lastday=getLastDate(2016,mm);
+		sel_dd=document.getElementById("sel_dd");
+		for(var i=1;i<=lastday;i++){
+			op=document.createElement("option");
+			op.text=i;	
+			sel_dd.add(op);
+		}	
+		sel_dd.value=dd;
+
+	}
+}
+function loadmem(){	
+	dd=sel_dd.value;
+	var s=new Date(2016,mm,dd);
+	var years=s.getFullYear();
+	var moth=s.getMonth()+1;
+	var date=s.getDate();
+	var day=s.getDay();	
+	
+	maindv=document.getElementById("maindv");
+	mem=new Mem(maindv,10,date,dayName[day]);
+	mem.init();	
+}
+function addclk(){
+	bt_add=document.getElementById("bt_add");
+	bt_add.addEventListener("click",function(){		
+		 loadmem();
+		 montharr[i].push(mem);
+	 });	 
+}
+function delclk(){
+	bt_del=document.getElementById("bt_del");
+	bt_del.addEventListener("click",function(){
+		delmem();
+	});
+}
+function delmem(){	
+	for(var i=0;i<arr.length;i++){
+		var obj=arr[i];
+		//alert(obj.checkbox.checked);
+		if(obj.checkbox.checked){
+			delete arr[i];
+			for(var j=i;j<arr.length;j++){
+				arr[j]=arr[j+1];
+				delete arr[j+1];
+			}
+			obj.stage.removeChild(obj.wrap);
+		}
+	}
+}/*
+function bt_month(){
+	m_bt=document.getElementsByClassName("m_bt");
+		for(var i=0;i<m_bt.length;i++){
+		
+		m_bt[i].addEventListener("click",function(){
+				m_bt[i].id=i;
+				console.log(this.id);
+		});	
+	}
+*/
+	
+}
+function bt_month(){
+	
+	m1=document.getElementById("m1");
+	m1.addEventListener("click",function(){
+
+		sel_mm.value=1;
+	
+	}	);
+}/*
+function bt_month(){
+	m_bt=document.getElementsByClassName("m_bt");
+	
+	for(var i=0;i<m_bt.length;i++){
+		
+		m_bt[i].addEventListener("click",function(){
+			m_bt[i].id=i;
+			sel_mm.value=i;
+		});
+	
+	}
+}
+
+function set_month(){
+	sel_mm=document.getElementById("sel_mm");
+	sel_dd=document.getElementById("sel_dd");
+	m_bt=document.getElementsByClassName("m_bt");
+	
+	for(var i=1;i<=12;i++){
+		op=document.createElement("option");
+		op.text=i;
+		sel_mm.add(op);	
+	}
+	sel_mm.value=mm+1;
+	//alert(mm+1);
+	lastday=getLastDate(2016,mm);
+
+	for(var i=1;i<lastday;i++){
+		op=document.createElement("option");
+		op.text=i;
+		sel_dd.add(op);
+	}
+	sel_dd.value=dd;
+}
+function mbt(){
+	m_bt=document.getElementsByClassName("m_bt");
+	for(var i=0;i<12;i++){
+		m_bt[i].id=i;
+		mm=this.id;
+	}
+}
+function clr(){	
+	clr_month();
+	clr_date();
+}
+function mbtclk(){
+	clr();
+	set_month();
+	mbt();	
+}
+function clr_month(){
+	op=document.getElementById("op");
+	for(var i=0;i<12;i++){
+		sel_mm.remove(op);
+	}
+}
+function clr_date(){
+	op=document.getElementById("op");
+	for(var i=0;i<lastday;i++){
+		sel_dd.remove(op);
+	}
+}*/
+</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="lpage">
+		<div id="yeardiv">
+			<select id="sel_yy"> </select>&nbsp년
+		</div>
+		<div id="monthdiv">
+			<input type="button" id="m1"class="m_bt" value="January">
+			<input type="button" id="m2" class="m_bt" value="February"><br>
+			<input type="button" id="m3" class="m_bt" value="March"><br>
+			<input type="button" id="m4" class="m_bt" value="April"><br>
+			<input type="button" id="m5" class="m_bt" value="May"><br>
+			<input type="button" id="m6" class="m_bt" value="June"><br>
+			<input type="button" id="m7" class="m_bt" value="July"><br>
+			<input type="button" id="m8" class="m_bt" value="August"><br>
+			<input type="button" id="m9" class="m_bt" value="September"><br>
+			<input type="button" id="m10" class="m_bt" value="October"><br>
+			<input type="button" id="m11" class="m_bt" value="November"><br>
+			<input type="button" id="m12" class="m_bt" value="December"><br>
+		</div>
+	</div>
+	<div id="rpage">
+		<div id="conbar"  > 
+			<input type="checkbox" name="allcheck" id="checkB" class="mid">				
+				<select id="sel_mm"></select>월
+				<select id="sel_dd"></select>일
+			<span>
+				<input type="button" value="add" class="mid" id="bt_add">
+				
+				<input type="button" value="del" class="mid" id="bt_del">
+			</span>
+		</div>
+		<div id="maindv"></div>
+	</div>
+</div>
+</body>
+</html>
