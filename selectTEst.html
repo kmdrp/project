@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style>
+#stage{
+margin:auto;
+	background:#bfbfbf;
+	width:300px;
+	height:400px;
+}
+
+</style>
+<script src="./lib.js"></script>
+<script>
+var stage=document.getElementById("stage");
+var txt=document.getElementById("txt");
+var d=new Date();
+//var s=new Date(sel_yy.value+"-"+sel_mm.value+"-1");
+var sel_yy;
+var yy;
+var sel_mm;
+var mm;
+var sel_dd;
+var dd;
+var dayName=["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
+var lastDate;
+window.addEventListener("load",function(){
+	init();
+});
+function init(){
+	selectinput();
+	
+}
+function selectinput(){
+	sel_yy=document.getElementById("sel_yy");
+	sel_mm=document.getElementById("sel_mm");
+	sel_dd=document.getElementById("sel_dd");	
+	for(var i=2016; i>=1990; i--){
+		yy=d.getFullYear();
+		//option 생성!!
+		var op=document.createElement("option");
+		op.text=i;
+		//select 에 추가하기!!
+		sel_yy.add(op);
+		sel_yy.value=yy;
+	}
+	for(var i=1; i<=12; i++){
+		mm=d.getMonth();
+		var op=document.createElement("option");
+		op.text=i;
+		sel_mm.add(op);
+		sel_mm.selectedIndex=1;
+	}
+	lastDate=getLastDate(sel_yy.value,sel_mm.value);
+	for(var i=1; i<=lastDate; i++){
+		
+		dd=d.getDate();
+		var op=document.createElement("option");
+		op.text=i;
+		sel_dd.add(op);
+		sel_dd.selectedIndex=dd;
+	}
+}
+</script>
+</head>
+<body >
+	<div id="stage">
+			<select id="sel_yy"></select>년
+			<select id="sel_mm"></select>월
+			<select id="sel_dd"></select>일
+			<br><br><br>
+			<input type="button" id="set_Date()" value="YyMmDd">
+			
+	</div>
+
+</body>
+</html>
