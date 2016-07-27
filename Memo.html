@@ -149,11 +149,14 @@ function bt_month(){
 		m.addEventListener("click",function(){
 			sel_mm.value=this.id;
 			stageInit(1,month_title[this.id-1]);
-			location.href="#"+this.id;
-
+			dv.scrollIntoView();
+			window.scrollTo(0,0);
+			
+		
 		});
 	}	
 }
+
 
 function clr_date(){
 	op=document.getElementById("option");
