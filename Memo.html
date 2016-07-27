@@ -39,6 +39,9 @@ var memarr=new Array();
 var lastday;
 var m_bt;
 var m1;
+var dv;
+var n;
+var month_title=["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
 
 window.addEventListener("load",function(){
 	init();
@@ -46,23 +49,28 @@ window.addEventListener("load",function(){
 function init(){	
 	set_year();
 	set_month();
-	set_dat();
+	set_date();
 	addclk();
 	delclk();	
 	bt_month();
-	//mbtclk();
-	function set_year(){
-		sel_yy=document.getElementById("sel_yy");
-		for(var i=2020; i>=1990; i--){		
-			//option 생성!!
-			op=document.createElement("option");
-			op.text=i;
-			//select 에 추가하기!!
-			sel_yy.add(op);
-			sel_yy.value=yy;
-		}
+	//mbtclk();	
+	//alert(mm);
+	stageInit(dd, month_title[mm]);
+	loadmem();
+	
+}
+function set_year(){
+	sel_yy=document.getElementById("sel_yy");
+	for(var i=2020; i>=1990; i--){		
+		//option 생성!!
+		op=document.createElement("option");
+		op.text=i;
+		//select 에 추가하기!!
+		sel_yy.add(op);
+		sel_yy.value=yy;
 	}
-	function set_month(){
+}
+function set_month(){
 		sel_mm=document.getElementById("sel_mm");
 		for (var i=1;i<=12;i++){
 			op=document.createElement("option");
@@ -72,9 +80,12 @@ function init(){
 		
 		sel_mm.value=mm+1;
 	}
-	function set_dat(){
+	
+function set_date(){		
+		mm=sel_mm.value-1;
+		var selectedDate=new Date(2016,mm-1);
 		
-		lastday=getLastDate(2016,mm);
+		lastday=getLastDate(2016,mm+1);
 		sel_dd=document.getElementById("sel_dd");
 		for(var i=1;i<=lastday;i++){
 			op=document.createElement("option");
@@ -82,10 +93,9 @@ function init(){
 			sel_dd.add(op);
 		}	
 		sel_dd.value=dd;
-
-	}
 }
 function loadmem(){	
+	n=dv;
 	dd=sel_dd.value;
 	var s=new Date(2016,mm,dd);
 	var years=s.getFullYear();
@@ -94,11 +104,12 @@ function loadmem(){
 	var day=s.getDay();	
 	
 	maindv=document.getElementById("maindv");
-	mem=new Mem(maindv,10,date,dayName[day]);
+	mem=new Mem(n,10,date,dayName[day]);
 	mem.init();	
 }
 function addclk(){
 	bt_add=document.getElementById("bt_add");
+
 	bt_add.addEventListener("click",function(){		
 		 loadmem();
 		 montharr[i].push(mem);
@@ -123,7 +134,48 @@ function delmem(){
 			obj.stage.removeChild(obj.wrap);
 		}
 	}
-}/*
+}
+function stageInit(d,m){
+	clr_date();
+	set_date();
+	sel_dd.value=d;
+	dv=document.getElementById(m);
+}
+
+function bt_month(){	
+	for(var i=1;i<=12;i++){
+		m=document.getElementById("m"+i);
+		m.id=i;
+		m.addEventListener("click",function(){
+			sel_mm.value=this.id;
+			stageInit(1,month_title[this.id-1]);
+			location.href="#"+this.id;
+
+		});
+	}	
+}
+
+function clr_date(){
+	op=document.getElementById("option");
+	for(var i=0;i<lastday;i++){
+		sel_dd.remove(op);
+	}
+}
+function set_newdate(){
+	mm=sel_mm.value;
+	lastday=getLastDate(2016,mm)
+	op=document.createElement("option");
+	for(var i=0;i<lastday;i++){
+		op.text=i;
+		sel_dd.add(op);
+		
+	}
+}
+function scrollwin(n){
+	window.scrollBy(0,500*n);
+	
+}
+/*
 function bt_month(){
 	m_bt=document.getElementsByClassName("m_bt");
 		for(var i=0;i<m_bt.length;i++){
@@ -133,18 +185,9 @@ function bt_month(){
 				console.log(this.id);
 		});	
 	}
-*/
-	
-}
-function bt_month(){
-	
-	m1=document.getElementById("m1");
-	m1.addEventListener("click",function(){
 
-		sel_mm.value=1;
 	
-	}	);
-}/*
+}*//*
 function bt_month(){
 	m_bt=document.getElementsByClassName("m_bt");
 	
@@ -202,10 +245,7 @@ function clr_month(){
 	}
 }
 function clr_date(){
-	op=document.getElementById("op");
-	for(var i=0;i<lastday;i++){
-		sel_dd.remove(op);
-	}
+	
 }*/
 </script>
 </head>
@@ -216,7 +256,7 @@ function clr_date(){
 			<select id="sel_yy"> </select>&nbsp년
 		</div>
 		<div id="monthdiv">
-			<input type="button" id="m1"class="m_bt" value="January">
+			<input type="button"  id="m1"class="m_bt" value="January">
 			<input type="button" id="m2" class="m_bt" value="February"><br>
 			<input type="button" id="m3" class="m_bt" value="March"><br>
 			<input type="button" id="m4" class="m_bt" value="April"><br>
@@ -227,7 +267,7 @@ function clr_date(){
 			<input type="button" id="m9" class="m_bt" value="September"><br>
 			<input type="button" id="m10" class="m_bt" value="October"><br>
 			<input type="button" id="m11" class="m_bt" value="November"><br>
-			<input type="button" id="m12" class="m_bt" value="December"><br>
+	<input type="button" id="m12" class="m_bt" value="December"><br>
 		</div>
 	</div>
 	<div id="rpage">
@@ -241,7 +281,20 @@ function clr_date(){
 				<input type="button" value="del" class="mid" id="bt_del">
 			</span>
 		</div>
-		<div id="maindv"></div>
+		<div id="maindv">
+			<div id="jan" class="mondiv" ></div>
+			<div id="feb" class="mondiv"></div>
+			<div id="mar" class="mondiv"></div>
+			<div id="apr" class="mondiv"></div>
+			<div id="may" class="mondiv"></div>
+			<div id="jun" class="mondiv"></div>
+			<div id="jul" class="mondiv"></div>
+			<div id="aug" class="mondiv"></div>
+			<div id="sep" class="mondiv"></div>
+			<div id="oct" class="mondiv"></div>
+			<div id="nov" class="mondiv"></div>
+			<div id="dec" class="mondiv"></div>
+		</div>
 	</div>
 </div>
 </body>

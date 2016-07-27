@@ -13,7 +13,7 @@ var Mem=function(stage,y,date,day){
 	this.div;
 	this.txt;
 	this.butt;
-	this.width=800;
+	this.width=780;
 	this.height=150;
 	this.x;
 	this.y=this.y;	
@@ -43,7 +43,7 @@ var Mem=function(stage,y,date,day){
 		this.wrap.style.height=this.height+"px";
 		this.wrap.style.position="relative";
 		this.wrap.style.top=this.y+"px";
-		this.wrap.style.left=40+"px";
+		this.wrap.style.left=7+"px";
 		this.wrap.id="cover";
 		
 		///////////////////////////////////////
@@ -51,7 +51,7 @@ var Mem=function(stage,y,date,day){
 		this.checkbox.style.position="relative";
 		this.checkbox.style.width=20+"px";
 		this.checkbox.style.height=20+"px";
-		this.checkbox.style.left=0+"px";
+		this.checkbox.style.left=20+"px";
 		this.checkbox.style.top=this.y+parseInt(this.wrap.height)+"px";
 		this.checkbox.style.verticalAlign="middle";
 		this.checkbox.style.float="left";
@@ -62,7 +62,7 @@ var Mem=function(stage,y,date,day){
 		this.div.style.position="relative";
 		this.div.style.width=610+"px";
 		this.div.style.height=120+"px";
-		this.div.style.left=40+"px";
+		this.div.style.left=50+"px";
 		this.div.style.top=this.y+(parseInt(this.wrap.height)-parseInt(this.div.height))/2+"px";
 		this.div.style.border=1+"px solid black";
 		this.div.style.marginTop=25+"px";
@@ -104,10 +104,10 @@ var Mem=function(stage,y,date,day){
 		this.divbutton.style.float="left";
 		this.divbutton.style.width=70+"px";
 		this.divbutton.style.height=30+"px";
-		this.divbutton.style.left=50+"px";
+		this.divbutton.style.left=70+"px";
 		this.divbutton.style.top=120+"px";
 		this.butt.value="regist";
-		this.butt.style.width=70+"px";
+		this.butt.style.width=50+"px";
 		this.butt.style.textAlign="center";
 		this.butt.id="reg";
 		/////////////////////////////////////////////////////////////
@@ -134,11 +134,14 @@ var Mem=function(stage,y,date,day){
 		this.wrap.appendChild(this.checkbox);
 		this.wrap.appendChild(this.div);
 		this.wrap.appendChild(this.divbutton);
+		//console.log("this.stage:"+this.stage);
+		//console.log("this.wrap:"+this.wrap);
 		this.stage.appendChild(this.wrap);
+	
 		
 		
 		this.daycolor();
-		this.updat();
+		//this.updat();
 		this.regist();
 	}
 	this.regist=function(){//// if else문 반복 처리
@@ -156,7 +159,8 @@ var Mem=function(stage,y,date,day){
 				}	
 			}else if(me.butt.value=="update"){
 				me.butt.value="regist";
-				me.txt.style.position="relative";				
+				me.txt.style.position="relative";
+				
 				me.txt.value=me.div2.innerText;
 				me.div2.innerText="";
 				me.div2.appendChild(me.txt);				
@@ -171,11 +175,14 @@ var Mem=function(stage,y,date,day){
 			me.divbot.style.color="blue";
 		}
 		
-	}
+	}/*
 	this.updat=function(){
+		var sw=true;
 		var me=this;
 		this.div2.addEventListener("click",function(){
 			if(false){
+				sw=!sw;
+				
 				var newtxt=document.createElement("textarea");
 				newtxt.style.position="relative";
 				newtxt.style.width=500+"px";
@@ -186,7 +193,7 @@ var Mem=function(stage,y,date,day){
 				me.clickflag=true;
 			}
 		});
-	}
+	}*/
 	
 	
 }
