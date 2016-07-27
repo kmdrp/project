@@ -15,9 +15,9 @@ var arr=new Array();
 var leng;
 var reg;
 var d=new Date();
-var montharr=new Array(12);
-for(i=0;i<montharr.length;i++){
-		montharr[i]=new Array();			
+var monthArr=new Array(12);
+for(i=0;i<monthArr.length;i++){
+		monthArr[i]=new Array();			
 }
 var op=document.createElement("option");
 var mon;
@@ -56,7 +56,7 @@ function init(){
 	//mbtclk();	
 	//alert(mm);
 	stageInit(dd, month_title[mm]);
-	loadmem();
+	
 	
 }
 function set_year(){
@@ -108,33 +108,36 @@ function loadmem(){
 	mem.init();	
 }
 function addclk(){
+	mon=sel_mm.value-1;
 	bt_add=document.getElementById("bt_add");
 
 	bt_add.addEventListener("click",function(){		
 		 loadmem();
-		 montharr[i].push(mem);
+		 monthArr[mon].push(mem);
+		 //printObj(mon);
+		
 	 });	 
 }
 function delclk(){
+	mon=sel_mm.value-1;
 	bt_del=document.getElementById("bt_del");
 	bt_del.addEventListener("click",function(){
-		delmem();
+		delmem(mon);
 	});
 }
-function delmem(){	
-	for(var i=0;i<arr.length;i++){
-		var obj=arr[i];
-		//alert(obj.checkbox.checked);
+
+function delmem(n){	
+	for(var i=0;i<monthArr.length;i++){
+		var obj=monthArr[n][i];
+		alert(obj.checkbox.checked);
 		if(obj.checkbox.checked){
-			delete arr[i];
-			for(var j=i;j<arr.length;j++){
-				arr[j]=arr[j+1];
-				delete arr[j+1];
-			}
+			delete monthArr[n][i];
+			
 			obj.stage.removeChild(obj.wrap);
 		}
 	}
 }
+
 function stageInit(d,m){
 	clr_date();
 	set_date();
@@ -147,16 +150,25 @@ function bt_month(){
 		m=document.getElementById("m"+i);
 		m.id=i;
 		m.addEventListener("click",function(){
-			sel_mm.value=this.id;
+			sel_mm.value=this.id;		
 			stageInit(1,month_title[this.id-1]);
+			dv.style.height=1000+"px";
 			dv.scrollIntoView();
 			window.scrollTo(0,0);
 			
 		
 		});
 	}	
-}
-
+}/*
+function printObj(n){
+	leng=monthArr[n].length;
+	for(i=0;i<leng;i++){
+		dv.removeChild(monthArr[n][i]);	
+	}
+	for(i=leng;i>leng;i--){
+		dv.appendChild(monthArr[n][i]);
+	}
+}*/
 
 function clr_date(){
 	op=document.getElementById("option");
@@ -173,11 +185,11 @@ function set_newdate(){
 		sel_dd.add(op);
 		
 	}
-}
+}/*
 function scrollwin(n){
 	window.scrollBy(0,500*n);
 	
-}
+}*/
 /*
 function bt_month(){
 	m_bt=document.getElementsByClassName("m_bt");
